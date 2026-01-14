@@ -57,7 +57,7 @@ export default function PokedexFooter({
             </Pressable>
 
             <Pressable onPress={onCenter} style={styles.dpadKeyCenter}>
-              <Text style={styles.dpadText}>●</Text>
+              <Text style={styles.dpadText}>O</Text>
             </Pressable>
 
             <Pressable onPress={onRight} style={styles.dpadKey}>
@@ -77,10 +77,10 @@ export default function PokedexFooter({
         {/* Accept / Reject */}
         <View style={styles.actions}>
           <Pressable onPress={onReject} style={styles.reject}>
-            <Text style={styles.actionText}>✖</Text>
+            <Text style={styles.actionText}>X</Text>
           </Pressable>
           <Pressable onPress={onAccept} style={styles.accept}>
-            <Text style={styles.actionText}>✔</Text>
+            <Text style={styles.actionText}>O</Text>
           </Pressable>
         </View>
       </View>
@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 
-  // ✅ Green screen: remove flex: 1, give it fixed-ish height feel
   greenScreen: {
     backgroundColor: "#b9d66a",
     borderWidth: 3,
@@ -152,7 +151,6 @@ const styles = StyleSheet.create({
   },
   dpadText: { color: "#eaeaea", fontWeight: "900", fontSize: 16 },
 
-  // ✅ Actions: vertical stack, centered, no stretching
   actions: {
     alignItems: "center",
     justifyContent: "center",

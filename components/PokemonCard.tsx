@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 
 export default function PokemonCard({
   name,
@@ -16,13 +16,10 @@ export default function PokemonCard({
       style={({ pressed }) => [
         styles.card,
         selected && styles.cardSelected,
-        pressed && { transform: [{ scale: 0.99 }] },
+
       ]}
     >
       <Text style={[styles.name, selected && styles.nameSelected]}>{name}</Text>
-      <View style={[styles.viewBtn, selected && styles.viewBtnSelected]}>
-        <Text style={styles.viewBtnText}>VIEW</Text>
-      </View>
     </Pressable>
   );
 }

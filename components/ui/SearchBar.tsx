@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 
 type Props = {
   value: string;
@@ -11,7 +11,6 @@ const SearchBar = forwardRef<TextInput, Props>(
   ({ value, onChangeText, placeholder }, ref) => {
     return (
       <View style={styles.wrap}>
-        <Text style={styles.icon}>⌕</Text>
         <TextInput
           ref={ref}
           value={value}

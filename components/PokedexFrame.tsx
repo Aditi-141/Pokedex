@@ -1,6 +1,5 @@
-// components/pokedex/PokedexFrame.tsx
 import React, { ReactNode } from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 type Props = {
   title?: string;
@@ -8,9 +7,9 @@ type Props = {
   footer?: ReactNode; 
 };
 
-export default function PokedexFrame({ title = "POKÉDEX", children, footer }: Props) {
+export default function PokedexFrame({ title = "POKEDEX", children, footer }: Props) {
   return (
-    <SafeAreaView style={styles.safe}>
+    <View style={styles.safe}>
       <View style={styles.shell}>
         {/* Top red header */}
         <View style={styles.top}>
@@ -40,7 +39,7 @@ export default function PokedexFrame({ title = "POKÉDEX", children, footer }: P
         {/* Bottom control panel */}
         <View style={styles.control}>{footer}</View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

@@ -10,11 +10,18 @@ import {
 } from "react-native";
 import PokedexFrame from "../components/PokedexFrame";
 
+type Ability = {
+  ability: {
+    name: string;
+  };
+};
+
 type PokemonDetail = {
   id: number;
   name: string;
   height: number;
   weight: number;
+  abilities: Ability[]
   sprites: { front_default: string };
   types: { type: { name: string } }[];
 };
@@ -47,7 +54,6 @@ export default function PokemonDetailScreen() {
   useEffect(() => {
     if (!name) return;
     loadByName(name);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
 
 
@@ -64,7 +70,7 @@ export default function PokemonDetailScreen() {
         <ScrollView contentContainerStyle={{ padding: 14 }}>
           <View style={styles.card}>
             <Text style={styles.pokeName}>
-              #{pokemon.id} • {pokemon.name}
+            {pokemon.name}
             </Text>
 
             <Image source={{ uri: pokemon.sprites.front_default }} style={styles.image} />
@@ -77,13 +83,26 @@ export default function PokemonDetailScreen() {
               <Text style={styles.label}>Weight</Text>
               <Text style={styles.value}>{pokemon.weight}</Text>
             </View>
+
             <View style={styles.row}>
               <Text style={styles.label}>Types</Text>
               <Text style={styles.value}>
                 {pokemon.types.map((t) => t.type.name).join(", ")}
               </Text>
             </View>
+
+            <View style={styles.row}>
+                <Text style={styles.label}>Abiasdflity</Text>
+                {pokemon.abilities.map((item, index) => (
+                <View key={index}>
+                    <Text style={styles.value}>{item.ability.name}</Text>
+                </View>
+                ))}
+            </View>
+            
           </View>
+
+          
         </ScrollView>
       )}
     </PokedexFrame>
