@@ -4,8 +4,8 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 type Props = {
   title?: string;
-  children: ReactNode; // the big white screen content
-  footer?: ReactNode;  // the gray control panel content
+  children: ReactNode; 
+  footer?: ReactNode; 
 };
 
 export default function PokedexFrame({ title = "POKÉDEX", children, footer }: Props) {

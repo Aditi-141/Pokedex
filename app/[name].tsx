@@ -125,7 +125,6 @@ export default function PokemonDetailScreen() {
               </Text>
             </View>
 
-            {/* D-pad style controls mirrored on detail (optional) */}
             <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 14, gap: 10 }}>
               <Pressable onPress={goPrev} style={styles.bigNav}>
                 <Text style={styles.bigNavText}>←</Text>

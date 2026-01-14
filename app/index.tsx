@@ -64,7 +64,7 @@ export default function PokedexScreen() {
 
   return (
     <PokedexFrame
-      title="POKÉDEX OF ANOMALIES"
+      title="POKEDEX"
       footer={
         <PokedexFooter
           query={query}

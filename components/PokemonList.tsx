@@ -14,7 +14,6 @@ export default function PokemonList({
   data: PokemonListItem[];
   selectedIndex: number;
 
-  // ✅ IMPORTANT: include | null
   listRef: React.RefObject<FlatList<PokemonListItem> | null>;
 
   onSelectAndOpen: (index: number) => void;
