@@ -3,11 +3,10 @@ import React, { useEffect, useMemo, useState } from "react";
 import {
     ActivityIndicator,
     Image,
-    Pressable,
     ScrollView,
     StyleSheet,
     Text,
-    View,
+    View
 } from "react-native";
 import PokedexFrame from "../components/PokedexFrame";
 
@@ -31,23 +30,11 @@ export default function PokemonDetailScreen() {
   const [loading, setLoading] = useState(true);
   const [currentId, setCurrentId] = useState<number | null>(null);
 
-  const title = useMemo(() => "POKÉDEX OF ANOMALIES", []);
+  const title = useMemo(() => "POKEDEX", []);
 
   const loadByName = (n: string) => {
     setLoading(true);
     fetch(`https://pokeapi.co/api/v2/pokemon/${n}`)
-      .then((res) => res.json())
-      .then((data: PokemonDetail) => {
-        setPokemon(data);
-        setCurrentId(data.id);
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  };
-
-  const loadById = (id: number) => {
-    setLoading(true);
-    fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
       .then((res) => res.json())
       .then((data: PokemonDetail) => {
         setPokemon(data);
@@ -63,43 +50,15 @@ export default function PokemonDetailScreen() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
 
-  const goPrev = () => {
-    if (!currentId) return;
-    const prev = Math.max(MIN_ID, currentId - 1);
-    loadById(prev);
-  };
-
-  const goNext = () => {
-    if (!currentId) return;
-    const next = Math.min(MAX_ID, currentId + 1);
-    loadById(next);
-  };
-
-  const goBack = () => router.back();
 
   return (
     <PokedexFrame
       title={title}
-      footer={
-        <View style={styles.footerRow}>
-          <Pressable onPress={goPrev} style={styles.footerBtn}>
-            <Text style={styles.footerBtnText}>← PREV</Text>
-          </Pressable>
-
-          <Pressable onPress={goBack} style={styles.footerBtn}>
-            <Text style={styles.footerBtnText}>✖ BACK</Text>
-          </Pressable>
-
-          <Pressable onPress={goNext} style={styles.footerBtn}>
-            <Text style={styles.footerBtnText}>NEXT →</Text>
-          </Pressable>
-        </View>
-      }
     >
       {loading || !pokemon ? (
         <View style={styles.loading}>
           <ActivityIndicator size="large" color="#e31919" />
-          <Text style={styles.loadingText}>Loading…</Text>
+          {/* <Text style={styles.loadingText}>Loading…</Text> */}
         </View>
       ) : (
         <ScrollView contentContainerStyle={{ padding: 14 }}>
@@ -123,15 +82,6 @@ export default function PokemonDetailScreen() {
               <Text style={styles.value}>
                 {pokemon.types.map((t) => t.type.name).join(", ")}
               </Text>
-            </View>
-
-            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 14, gap: 10 }}>
-              <Pressable onPress={goPrev} style={styles.bigNav}>
-                <Text style={styles.bigNavText}>←</Text>
-              </Pressable>
-              <Pressable onPress={goNext} style={styles.bigNav}>
-                <Text style={styles.bigNavText}>→</Text>
-              </Pressable>
             </View>
           </View>
         </ScrollView>
