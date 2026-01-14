@@ -13,7 +13,6 @@ export default function PokedexScreen() {
 
   const router = useRouter();
 
-  // ✅ IMPORTANT: include | null
   const listRef = useRef<FlatList<PokemonListItem> | null>(null);
   const searchRef = useRef<TextInput | null>(null);
 
