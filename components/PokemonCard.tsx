@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, Text } from "react-native";
 
 export default function PokemonCard({
   name,
@@ -30,14 +30,14 @@ export default function PokemonCard({
         {name}
       </Text>
 
-      <View
+      {/* <View
         className={[
           "bg-[#e31919] border-2 border-[#0c0c0c] px-[12px] py-[6px] rounded-[10px]",
           selected && "bg-[#ff2a2a]",
         ].join(" ")}
       >
         <Text className="text-[#111] font-black tracking-[1px]">VIEW</Text>
-      </View>
+      </View> */}
     </Pressable>
   );
 }
