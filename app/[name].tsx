@@ -1,13 +1,6 @@
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useMemo, useState } from "react";
-import {
-    ActivityIndicator,
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View
-} from "react-native";
+import { ActivityIndicator, Image, ScrollView, Text, View } from "react-native";
 import PokedexFrame from "../components/PokedexFrame";
 
 type PokemonDetail = {
@@ -15,71 +8,82 @@ type PokemonDetail = {
   name: string;
   height: number;
   weight: number;
-  sprites: { front_default: string };
+  sprites: { front_default: string | null };
   types: { type: { name: string } }[];
 };
 
-const MIN_ID = 1;
-const MAX_ID = 151;
-
 export default function PokemonDetailScreen() {
   const { name } = useLocalSearchParams<{ name: string }>();
-  const router = useRouter();
 
   const [pokemon, setPokemon] = useState<PokemonDetail | null>(null);
   const [loading, setLoading] = useState(true);
-  const [currentId, setCurrentId] = useState<number | null>(null);
 
   const title = useMemo(() => "POKEDEX", []);
 
-  const loadByName = (n: string) => {
-    setLoading(true);
-    fetch(`https://pokeapi.co/api/v2/pokemon/${n}`)
-      .then((res) => res.json())
-      .then((data: PokemonDetail) => {
-        setPokemon(data);
-        setCurrentId(data.id);
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  };
-
   useEffect(() => {
     if (!name) return;
-    loadByName(name);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    setLoading(true);
+    fetch(`https://pokeapi.co/api/v2/pokemon/${String(name).toLowerCase()}`)
+      .then((res) => res.json())
+      .then((data: PokemonDetail) => setPokemon(data))
+      .catch((e) => console.log("Fetch error:", e))
+      .finally(() => setLoading(false));
   }, [name]);
 
+  const spriteUri =
+    pokemon?.sprites?.front_default?.replace("http://", "https://") ?? "";
+
+  useEffect(() => {
+    if (spriteUri) console.log("Sprite URI:", spriteUri);
+  }, [spriteUri]);
 
   return (
-    <PokedexFrame
-      title={title}
-    >
+    <PokedexFrame title={title}>
       {loading || !pokemon ? (
-        <View style={styles.loading}>
+        <View className="flex-1 items-center justify-center">
           <ActivityIndicator size="large" color="#e31919" />
-          {/* <Text style={styles.loadingText}>Loading…</Text> */}
         </View>
       ) : (
         <ScrollView contentContainerStyle={{ padding: 14 }}>
-          <View style={styles.card}>
-            <Text style={styles.pokeName}>
+          <View className="bg-white border-[3px] border-[#0c0c0c] rounded-[14px] p-[14px]">
+            <Text className="text-[22px] font-black text-[#111] capitalize mb-[12px]">
               #{pokemon.id} • {pokemon.name}
             </Text>
 
-            <Image source={{ uri: pokemon.sprites.front_default }} style={styles.image} />
+            {spriteUri ? (
+              <Image
+                source={{ uri: spriteUri }}
+                style={{ width: 220, height: 220, alignSelf: "center" }} 
+                resizeMode="contain"
+                onLoad={() => console.log("Image loaded")}
+                onError={(e) =>
+                  console.log("Image error:", e.nativeEvent, "URI:", spriteUri)
+                }
+              />
+            ) : (
+              <Text className="text-[#111] text-center mb-[12px]">
+                No sprite available for this Pokémon
+              </Text>
+            )}
 
-            <View style={styles.row}>
-              <Text style={styles.label}>Height</Text>
-              <Text style={styles.value}>{pokemon.height}</Text>
+            <View className="flex-row justify-between py-[10px] border-t border-t-[#ddd] mt-[12px]">
+              <Text className="font-black text-[#333]">Height</Text>
+              <Text className="font-extrabold text-[#111] capitalize">
+                {pokemon.height}
+              </Text>
             </View>
-            <View style={styles.row}>
-              <Text style={styles.label}>Weight</Text>
-              <Text style={styles.value}>{pokemon.weight}</Text>
+
+            <View className="flex-row justify-between py-[10px] border-t border-t-[#ddd]">
+              <Text className="font-black text-[#333]">Weight</Text>
+              <Text className="font-extrabold text-[#111] capitalize">
+                {pokemon.weight}
+              </Text>
             </View>
-            <View style={styles.row}>
-              <Text style={styles.label}>Types</Text>
-              <Text style={styles.value}>
+
+            <View className="flex-row justify-between py-[10px] border-t border-t-[#ddd]">
+              <Text className="font-black text-[#333]">Types</Text>
+              <Text className="font-extrabold text-[#111] capitalize">
                 {pokemon.types.map((t) => t.type.name).join(", ")}
               </Text>
             </View>
@@ -89,56 +93,3 @@ export default function PokemonDetailScreen() {
     </PokedexFrame>
   );
 }
-
-const styles = StyleSheet.create({
-  loading: { flex: 1, alignItems: "center", justifyContent: "center" },
-  loadingText: { marginTop: 10, fontSize: 16, color: "#e31919", fontWeight: "700" },
-
-  card: {
-    backgroundColor: "#fff",
-    borderWidth: 3,
-    borderColor: "#0c0c0c",
-    borderRadius: 14,
-    padding: 14,
-  },
-  pokeName: {
-    fontSize: 22,
-    fontWeight: "900",
-    color: "#111",
-    textTransform: "capitalize",
-    marginBottom: 12,
-  },
-  image: { width: 220, height: 220, alignSelf: "center", marginBottom: 12 },
-
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 10,
-    borderTopWidth: 1,
-    borderTopColor: "#ddd",
-  },
-  label: { fontWeight: "900", color: "#333" },
-  value: { fontWeight: "800", color: "#111", textTransform: "capitalize" },
-
-  footerRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
-  footerBtn: {
-    backgroundColor: "#eaeaea",
-    borderWidth: 3,
-    borderColor: "#0c0c0c",
-    borderRadius: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-  },
-  footerBtnText: { fontWeight: "900", color: "#111" },
-
-  bigNav: {
-    flex: 1,
-    backgroundColor: "#e31919",
-    borderWidth: 3,
-    borderColor: "#0c0c0c",
-    borderRadius: 14,
-    paddingVertical: 14,
-    alignItems: "center",
-  },
-  bigNavText: { fontSize: 22, fontWeight: "900", color: "#111" },
-});

@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 import SearchBar from "./ui/SearchBar";
 
 export default function PokedexFooter({
@@ -26,10 +26,10 @@ export default function PokedexFooter({
   onReject: () => void;
 }) {
   return (
-    <View style={styles.wrapper}>
+    <View className="gap-[12px]">
       {/* Green screen */}
-      <View style={styles.topArea}>
-        <View style={styles.greenScreen}>
+      <View>
+        <View className="bg-[#b9d66a] border-[3px] border-[#0c0c0c] rounded-[12px] p-[10px] gap-[8px]">
           <SearchBar
             ref={searchRef}
             value={query}
@@ -40,143 +40,75 @@ export default function PokedexFooter({
       </View>
 
       {/* Controls row */}
-      <View style={styles.controlsRow}>
+      <View className="flex-row items-center justify-between">
         {/* D-pad */}
-        <View style={styles.dpad}>
-          <View style={styles.dpadRow}>
-            <View style={styles.dpadSpacer} />
-            <Pressable onPress={onUp} style={styles.dpadKey}>
-              <Text style={styles.dpadText}>↑</Text>
+        <View className="p-[6px] bg-[#2f2f2f] border-[3px] border-[#0c0c0c] rounded-[12px]">
+          {/* Row 1 */}
+          <View className="flex-row items-center justify-center gap-[6px] my-[3px]">
+            <View className="w-[46px] h-[46px]" />
+            <Pressable
+              onPress={onUp}
+              className="w-[46px] h-[46px] rounded-[10px] bg-[#4a4a4a] border-2 border-[#0c0c0c] items-center justify-center"
+            >
+              <Text className="text-[#eaeaea] font-black text-[16px]">↑</Text>
             </Pressable>
-            <View style={styles.dpadSpacer} />
+            <View className="w-[46px] h-[46px]" />
           </View>
 
-          <View style={styles.dpadRow}>
-            <Pressable onPress={onLeft} style={styles.dpadKey}>
-              <Text style={styles.dpadText}>←</Text>
+          {/* Row 2 */}
+          <View className="flex-row items-center justify-center gap-[6px] my-[3px]">
+            <Pressable
+              onPress={onLeft}
+              className="w-[46px] h-[46px] rounded-[10px] bg-[#4a4a4a] border-2 border-[#0c0c0c] items-center justify-center"
+            >
+              <Text className="text-[#eaeaea] font-black text-[16px]">←</Text>
             </Pressable>
 
-            <Pressable onPress={onCenter} style={styles.dpadKeyCenter}>
-              <Text style={styles.dpadText}>●</Text>
+            <Pressable
+              onPress={onCenter}
+              className="w-[46px] h-[46px] rounded-[10px] bg-[#3a3a3a] border-2 border-[#0c0c0c] items-center justify-center"
+            >
+              <Text className="text-[#eaeaea] font-black text-[16px]">●</Text>
             </Pressable>
 
-            <Pressable onPress={onRight} style={styles.dpadKey}>
-              <Text style={styles.dpadText}>→</Text>
+            <Pressable
+              onPress={onRight}
+              className="w-[46px] h-[46px] rounded-[10px] bg-[#4a4a4a] border-2 border-[#0c0c0c] items-center justify-center"
+            >
+              <Text className="text-[#eaeaea] font-black text-[16px]">→</Text>
             </Pressable>
           </View>
 
-          <View style={styles.dpadRow}>
-            <View style={styles.dpadSpacer} />
-            <Pressable onPress={onDown} style={styles.dpadKey}>
-              <Text style={styles.dpadText}>↓</Text>
+          {/* Row 3 */}
+          <View className="flex-row items-center justify-center gap-[6px] my-[3px]">
+            <View className="w-[46px] h-[46px]" />
+            <Pressable
+              onPress={onDown}
+              className="w-[46px] h-[46px] rounded-[10px] bg-[#4a4a4a] border-2 border-[#0c0c0c] items-center justify-center"
+            >
+              <Text className="text-[#eaeaea] font-black text-[16px]">↓</Text>
             </Pressable>
-            <View style={styles.dpadSpacer} />
+            <View className="w-[46px] h-[46px]" />
           </View>
         </View>
 
         {/* Accept / Reject */}
-        <View style={styles.actions}>
-          <Pressable onPress={onReject} style={styles.reject}>
-            <Text style={styles.actionText}>✖</Text>
+        <View className="items-center justify-center gap-[10px]">
+          <Pressable
+            onPress={onReject}
+            className="w-[56px] h-[56px] rounded-[28px] bg-[#e31919] border-[3px] border-[#0c0c0c] items-center justify-center"
+          >
+            <Text className="text-[22px] font-black text-[#0c0c0c]">✖</Text>
           </Pressable>
-          <Pressable onPress={onAccept} style={styles.accept}>
-            <Text style={styles.actionText}>✔</Text>
+
+          <Pressable
+            onPress={onAccept}
+            className="w-[56px] h-[56px] rounded-[28px] bg-[#38d86b] border-[3px] border-[#0c0c0c] items-center justify-center"
+          >
+            <Text className="text-[22px] font-black text-[#0c0c0c]">✔</Text>
           </Pressable>
         </View>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    gap: 12,
-  },
-
-  topArea: {
-    // keeps green screen from stretching weirdly
-  },
-
-  controlsRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-
-  // ✅ Green screen: remove flex: 1, give it fixed-ish height feel
-  greenScreen: {
-    backgroundColor: "#b9d66a",
-    borderWidth: 3,
-    borderColor: "#0c0c0c",
-    borderRadius: 12,
-    padding: 10,
-    gap: 8,
-  },
-  greenHint: { fontWeight: "800", color: "#1a1a1a" },
-
-  // D-pad
-  dpad: {
-    padding: 6,
-    backgroundColor: "#2f2f2f",
-    borderWidth: 3,
-    borderColor: "#0c0c0c",
-    borderRadius: 12,
-  },
-  dpadRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 6,
-    marginVertical: 3,
-  },
-  dpadSpacer: { width: 46, height: 46 },
-  dpadKey: {
-    width: 46,
-    height: 46,
-    borderRadius: 10,
-    backgroundColor: "#4a4a4a",
-    borderWidth: 2,
-    borderColor: "#0c0c0c",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  dpadKeyCenter: {
-    width: 46,
-    height: 46,
-    borderRadius: 10,
-    backgroundColor: "#3a3a3a",
-    borderWidth: 2,
-    borderColor: "#0c0c0c",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  dpadText: { color: "#eaeaea", fontWeight: "900", fontSize: 16 },
-
-  // ✅ Actions: vertical stack, centered, no stretching
-  actions: {
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 10,
-  },
-  reject: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: "#e31919",
-    borderWidth: 3,
-    borderColor: "#0c0c0c",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  accept: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: "#38d86b",
-    borderWidth: 3,
-    borderColor: "#0c0c0c",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  actionText: { fontSize: 22, fontWeight: "900", color: "#0c0c0c" },
-});

@@ -13,9 +13,7 @@ export default function PokemonList({
 }: {
   data: PokemonListItem[];
   selectedIndex: number;
-
   listRef: React.RefObject<FlatList<PokemonListItem> | null>;
-
   onSelectAndOpen: (index: number) => void;
   query: string;
 }) {
@@ -24,7 +22,7 @@ export default function PokemonList({
       ref={listRef}
       data={data}
       keyExtractor={(item) => item.name}
-      contentContainerStyle={{ padding: 12, paddingBottom: 18 }}
+      contentContainerClassName="p-[12px] pb-[18px]"
       onScrollToIndexFailed={() => {}}
       renderItem={({ item, index }) => (
         <PokemonCard
@@ -34,8 +32,8 @@ export default function PokemonList({
         />
       )}
       ListEmptyComponent={
-        <View style={{ padding: 18 }}>
-          <Text style={{ color: "#222", fontWeight: "700" }}>
+        <View className="p-[18px]">
+          <Text className="text-[#222] font-bold">
             No matches for “{query}”
           </Text>
         </View>

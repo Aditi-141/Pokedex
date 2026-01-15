@@ -1,134 +1,56 @@
 // components/pokedex/PokedexFrame.tsx
 import React, { ReactNode } from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 type Props = {
   title?: string;
-  children: ReactNode; 
-  footer?: ReactNode; 
+  children: ReactNode;
+  footer?: ReactNode;
 };
 
-export default function PokedexFrame({ title = "POKÉDEX", children, footer }: Props) {
+export default function PokedexFrame({
+  title = "POKÉDEX",
+  children,
+  footer,
+}: Props) {
   return (
-    <SafeAreaView style={styles.safe}>
-      <View style={styles.shell}>
+    <View className="flex-1 bg-[#111]">
+      {/* Red device body */}
+      <View className="flex-1 m-[10px] rounded-[22px] bg-[#e31919] border-4 border-[#0c0c0c] overflow-hidden">
         {/* Top red header */}
-        <View style={styles.top}>
-          <View style={styles.topRow}>
+        <View className="px-[14px] pt-[10px] pb-[12px]">
+          <View className="flex-row items-center gap-[10px]">
             {/* Big blue light */}
-            <View style={styles.bigBlueOuter}>
-              <View style={styles.bigBlueInner} />
+            <View className="w-[66px] h-[66px] rounded-[33px] bg-[#bfe8ff] items-center justify-center border-[3px] border-[#0c0c0c]">
+              <View className="w-[52px] h-[52px] rounded-[26px] bg-[#33c7ff] border-2 border-[#0c0c0c]" />
             </View>
 
             {/* Small lights */}
-            <View style={styles.smallLights}>
-              <View style={[styles.dot, { backgroundColor: "#ff3b3b" }]} />
-              <View style={[styles.dot, { backgroundColor: "#ffd84d" }]} />
-              <View style={[styles.dot, { backgroundColor: "#38d86b" }]} />
+            <View className="flex-row gap-[6px]">
+              <View className="w-[12px] h-[12px] rounded-[6px] border-2 border-[#0c0c0c] bg-[#ff3b3b]" />
+              <View className="w-[12px] h-[12px] rounded-[6px] border-2 border-[#0c0c0c] bg-[#ffd84d]" />
+              <View className="w-[12px] h-[12px] rounded-[6px] border-2 border-[#0c0c0c] bg-[#38d86b]" />
             </View>
 
             {/* Title */}
-            <Text style={styles.title}>{title}</Text>
+            <Text className="ml-auto text-[18px] tracking-[1px] font-black text-[#111]">
+              {title}
+            </Text>
           </View>
         </View>
 
         {/* Big white screen */}
-        <View style={styles.screenWrap}>
-          <View style={styles.screenInset}>{children}</View>
+        <View className="flex-1 px-[16px] pb-[10px]">
+          <View className="flex-1 bg-[#f7f7f7] border-[3px] border-[#0c0c0c] rounded-[10px] overflow-hidden">
+            {children}
+          </View>
         </View>
 
         {/* Bottom control panel */}
-        <View style={styles.control}>{footer}</View>
+        <View className="bg-[#3b3b3b] border-t-4 border-t-[#0c0c0c] p-[14px]">
+          {footer}
+        </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: "#111" },
-
-  // Red device body
-  shell: {
-    flex: 1,
-    margin: 10,
-    borderRadius: 22,
-    backgroundColor: "#e31919",
-    borderWidth: 4,
-    borderColor: "#0c0c0c",
-    overflow: "hidden",
-  },
-
-  // Header area
-  top: {
-    paddingHorizontal: 14,
-    paddingTop: 10,
-    paddingBottom: 12,
-  },
-  topRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-  },
-
-  // Blue light
-  bigBlueOuter: {
-    width: 66,
-    height: 66,
-    borderRadius: 33,
-    backgroundColor: "#bfe8ff",
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 3,
-    borderColor: "#0c0c0c",
-  },
-  bigBlueInner: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
-    backgroundColor: "#33c7ff",
-    borderWidth: 2,
-    borderColor: "#0c0c0c",
-  },
-
-  // Small lights
-  smallLights: { flexDirection: "row", gap: 6 },
-  dot: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    borderWidth: 2,
-    borderColor: "#0c0c0c",
-  },
-
-  // Title
-  title: {
-    marginLeft: "auto",
-    fontSize: 18,
-    letterSpacing: 1,
-    fontWeight: "900",
-    color: "#111",
-  },
-
-  // White screen area
-  screenWrap: {
-    flex: 1,
-    paddingHorizontal: 16,
-    paddingBottom: 10,
-  },
-  screenInset: {
-    flex: 1,
-    backgroundColor: "#f7f7f7",
-    borderWidth: 3,
-    borderColor: "#0c0c0c",
-    borderRadius: 10,
-    overflow: "hidden",
-  },
-
-  // Bottom panel area
-  control: {
-    backgroundColor: "#3b3b3b",
-    borderTopWidth: 4,
-    borderTopColor: "#0c0c0c",
-    padding: 14,
-  },
-});

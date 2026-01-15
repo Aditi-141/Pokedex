@@ -1,6 +1,12 @@
 import { useRouter } from "expo-router";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { ActivityIndicator, FlatList, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import PokedexFooter from "../components/PokedexFooter";
 import PokedexFrame from "../components/PokedexFrame";
 import PokemonList, { PokemonListItem } from "../components/PokemonList";
@@ -40,12 +46,19 @@ export default function PokedexScreen() {
 
   const scrollTo = (index: number) => {
     if (!filtered.length) return;
-    listRef.current?.scrollToIndex({ index, animated: true, viewPosition: 0.5 });
+    listRef.current?.scrollToIndex({
+      index,
+      animated: true,
+      viewPosition: 0.5,
+    });
   };
 
   const move = (delta: number) => {
     if (!filtered.length) return;
-    const next = Math.max(0, Math.min(filtered.length - 1, selectedIndex + delta));
+    const next = Math.max(
+      0,
+      Math.min(filtered.length - 1, selectedIndex + delta)
+    );
     setSelectedIndex(next);
     scrollTo(next);
   };
@@ -80,9 +93,11 @@ export default function PokedexScreen() {
       }
     >
       {loading ? (
-        <View style={styles.loading}>
+        <View className="flex-1 items-center justify-center">
           <ActivityIndicator size="large" color="#e31919" />
-          <Text style={styles.loadingText}>Loading Pokémon…</Text>
+          <Text className="mt-[10px] text-[16px] text-[#e31919] font-bold">
+            Loading Pokémon…
+          </Text>
         </View>
       ) : (
         <PokemonList
@@ -99,8 +114,3 @@ export default function PokedexScreen() {
     </PokedexFrame>
   );
 }
-
-const styles = StyleSheet.create({
-  loading: { flex: 1, alignItems: "center", justifyContent: "center" },
-  loadingText: { marginTop: 10, fontSize: 16, color: "#e31919", fontWeight: "700" },
-});
