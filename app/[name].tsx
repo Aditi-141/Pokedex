@@ -4,6 +4,8 @@ import { ActivityIndicator, Image, ScrollView, Text, View } from "react-native";
 import PokedexFrame from "../components/PokedexFrame";
 
 type PokemonDetail = {
+  abilities: [];
+  ability: [];
   id: number;
   name: string;
   height: number;
@@ -78,6 +80,15 @@ export default function PokemonDetailScreen() {
               <Text className="font-black text-[#333]">Weight</Text>
               <Text className="font-extrabold text-[#111] capitalize">
                 {pokemon.weight}
+              </Text>
+            </View>
+
+            <View className="flex-row justify-between py-[10px] border-t border-t-[#ddd]">
+              <Text className="font-black text-[#333]">Abilities</Text>
+              <Text className="font-extrabold text-[#111] capitalize">
+                {pokemon?.abilities
+                  ?.map((a: { ability: { name: string; }; }) => a.ability.name)
+                  .join(", ") ?? "—"}
               </Text>
             </View>
 

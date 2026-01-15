@@ -29,15 +29,6 @@ export default function PokemonCard({
       >
         {name}
       </Text>
-
-      {/* <View
-        className={[
-          "bg-[#e31919] border-2 border-[#0c0c0c] px-[12px] py-[6px] rounded-[10px]",
-          selected && "bg-[#ff2a2a]",
-        ].join(" ")}
-      >
-        <Text className="text-[#111] font-black tracking-[1px]">VIEW</Text>
-      </View> */}
     </Pressable>
   );
 }
