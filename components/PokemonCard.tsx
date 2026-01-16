@@ -14,8 +14,8 @@ export default function PokemonCard({
     <Pressable
       onPress={onPress}
       className={[
-        "bg-white border-2 border-[#0c0c0c] rounded-[12px] py-[14px] px-[14px] mb-[10px] flex-row items-center justify-between",
-        selected && "bg-[#f5dc51] border-[3px] ",
+        "bg-[#ebeef3] border-0 rounded-[12px] py-[14px] px-[14px] mb-[10px] flex-row items-center justify-between",
+        selected && "bg-[#eee090]",
       ].join(" ")}
       style={({ pressed }) => [
         pressed && { transform: [{ scale: 0.99 }] },

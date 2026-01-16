@@ -1,5 +1,6 @@
+import { Search } from "lucide-react-native";
 import React, { forwardRef } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { TextInput, View } from "react-native";
 
 type Props = {
   value: string;
@@ -10,8 +11,8 @@ type Props = {
 const SearchBar = forwardRef<TextInput, Props>(
   ({ value, onChangeText, placeholder }, ref) => {
     return (
-      <View style={styles.wrap}>
-        <Text style={styles.icon}>⌕</Text>
+      <View className="flex-row items-center bg-[#f5f7f2] border-0 border-0 rounded-lg px-2.5 py-2">
+        <Search className="text-[#1b1b1b] " size={18} />
         <TextInput
           ref={ref}
           value={value}
@@ -20,7 +21,7 @@ const SearchBar = forwardRef<TextInput, Props>(
           placeholderTextColor="#2e3a1f"
           autoCapitalize="none"
           autoCorrect={false}
-          style={styles.input}
+          className="flex-1 text-base text-[#121212] py-0"
           returnKeyType="search"
         />
       </View>
@@ -30,28 +31,3 @@ const SearchBar = forwardRef<TextInput, Props>(
 
 SearchBar.displayName = "SearchBar";
 export default SearchBar;
-
-const styles = StyleSheet.create({
-  wrap: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#b9d66a",
-    borderWidth: 2,
-    borderColor: "#2a2a2a",
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-  },
-  icon: {
-    fontSize: 18,
-    marginRight: 8,
-    color: "#1b1b1b",
-    fontWeight: "700",
-  },
-  input: {
-    flex: 1,
-    fontSize: 16,
-    color: "#121212",
-    paddingVertical: 0,
-  },
-});

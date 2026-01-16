@@ -1,5 +1,6 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect, useMemo, useState } from "react";
+
 import {
   ActivityIndicator,
   Image,
@@ -11,8 +12,7 @@ import {
 import PokedexFrame from "../../../components/PokedexFrame";
 
 type PokemonDetail = {
-  abilities: [];
-  ability: [];
+  abilities: { ability: { name: string } }[];
   id: number;
   name: string;
   height: number;
@@ -44,10 +44,6 @@ export default function PokemonDetailScreen() {
   const spriteUri =
     pokemon?.sprites?.front_default?.replace("http://", "https://") ?? "";
 
-  useEffect(() => {
-    if (spriteUri) console.log("Sprite URI:", spriteUri);
-  }, [spriteUri]);
-
   const goBack = () => {
     if (router.canGoBack()) router.back();
     else router.replace("/");
@@ -61,10 +57,9 @@ export default function PokemonDetailScreen() {
         </View>
       ) : (
         <ScrollView contentContainerStyle={{ padding: 14 }}>
-          {/* Back button */}
-          <View className="bg-white border-[3px] border-[#0c0c0c] rounded-[14px] p-[14px]">
-            <Text className="text-[22px] font-black text-[#111] capitalize mb-[12px]">
-              #{pokemon.id} • {pokemon.name}
+          <View className="bg-white border-[3px] border-[#e7e5e5] rounded-[14px] p-[14px]">
+            <Text className="text-[22px] font-black text-[#4b4a4a] capitalize mb-[12px]">
+              {pokemon.id} • {pokemon.name}
             </Text>
 
             {spriteUri ? (
@@ -83,43 +78,44 @@ export default function PokemonDetailScreen() {
               </Text>
             )}
 
-            <View className="flex-row justify-between py-[10px] border-t border-t-[#ddd] mt-[12px]">
-              <Text className="font-black text-[#333]">Height</Text>
-              <Text className="font-extrabold text-[#111] capitalize">
+            <View className="flex-row justify-between py-[10px]  bg-slate-200  border-t border-t-[#ddd] mt-[12px]">
+              <Text className="font-black text-[#4e4c4c]  pl-[10px]">Height</Text>
+              <Text className="font-extrabold text-[#1e90ff] capitalize pr-[10px]">
                 {pokemon.height}
               </Text>
             </View>
 
-            <View className="flex-row justify-between py-[10px] border-t border-t-[#ddd]">
-              <Text className="font-black text-[#333]">Weight</Text>
-              <Text className="font-extrabold text-[#111] capitalize">
+            <View className="flex-row justify-between py-[10px] bg-slate-100 border-t border-t-[#ddd]">
+              <Text className="font-black text-[#4e4c4c] pl-[10px]">Weight</Text>
+              <Text className="font-extrabold text-[#df8920] capitalize pr-[10px]">
                 {pokemon.weight}
               </Text>
             </View>
 
-            <View className="flex-row justify-between py-[10px] border-t border-t-[#ddd]">
-              <Text className="font-black text-[#333]">Abilities</Text>
-              <Text className="font-extrabold text-[#111] capitalize">
-                {pokemon?.abilities
-                  ?.map((a: { ability: { name: string } }) => a.ability.name)
+            <View className="flex-row justify-between py-[10px] bg-slate-200  border-t border-t-[#ddd]">
+              <Text className="font-black text-[#4e4c4c]  pl-[10px]">Abilities</Text>
+              <Text className="font-extrabold text-[#5bd85b] capitalize pr-[10px]">
+                {pokemon.abilities
+                  ?.map((a) => a.ability.name)
                   .join(", ") ?? "—"}
               </Text>
             </View>
 
-            <View className="flex-row justify-between py-[10px] border-t border-t-[#ddd]">
-              <Text className="font-black text-[#333]">Types</Text>
-              <Text className="font-extrabold text-[#111] capitalize">
+            {/* Types */}
+            <View className="flex-row justify-between py-[10px] border-t  bg-slate-100 border-t-[#ddd]">
+              <Text className="font-black text-[#4e4c4c] pl-[10px]">Types</Text>
+              <Text className="font-extrabold text-[#ec3496] capitalize pr-[10px]">
                 {pokemon.types.map((t) => t.type.name).join(", ")}
               </Text>
             </View>
           </View>
+
           <Pressable
             onPress={goBack}
-            className="w-full h-[56px] rounded-[10px] bg-[#e31919] border-[3px] border-[#0c0c0c] items-center justify-center"
+            className="w-full h-[56px] rounded-[10px] bg-[#f38b8b] border-[3px] border-[#e71e1e] items-center justify-center mt-[12px]"
           >
-            <Text className="font-black text-[#111]">Back</Text>
+            <Text className="font-black text-[#333]">Back</Text>
           </Pressable>
-
         </ScrollView>
       )}
     </PokedexFrame>
