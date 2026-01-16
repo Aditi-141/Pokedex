@@ -40,7 +40,7 @@ export default function PokedexFrame({
           </View>
         </View>
 
-        {/* White screen — THIS enables ScrollView */}
+        {/* White screen  */}
         <View className="flex-1 px-[16px] pb-[10px]">
           <View className="flex-1 bg-[#f7f7f7] border-[3px] rounded-[10px] overflow-hidden">
             {children}
