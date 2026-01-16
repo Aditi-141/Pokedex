@@ -44,21 +44,21 @@ const PokedexFooter: React.FC<PokedexFooterProps> = ({
           {/* Row 1 */}
           <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 6, marginVertical: 3 }}>
             <View style={{ width: 46, height: 46 }} />
-            <ControllerButton onPress={onUp} icon={<MoveUp color="#eaeaea" size={24} />} />
+            <ControllerButton onPress={onUp} icon={<MoveUp  size={24} />} />
             <View style={{ width: 46, height: 46 }} />
           </View>
 
           {/* Row 2 */}
           <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 6, marginVertical: 3 }}>
-            <ControllerButton onPress={onLeft} icon={<MoveLeft color="#eaeaea" size={24} />} />
-            <ControllerButton onPress={onCenter} icon={<CircleDot color="#eaeaea" size={24} />} bgColor="#3a3a3a" />
-            <ControllerButton onPress={onRight} icon={<MoveRight color="#eaeaea" size={24} />} />
+            <ControllerButton onPress={onLeft} icon={<MoveLeft  size={24} />} />
+            <ControllerButton onPress={onCenter} icon={<CircleDot  size={24} />} bgColor="#3a3a3a" />
+            <ControllerButton onPress={onRight} icon={<MoveRight  size={24} />} />
           </View>
 
           {/* Row 3 */}
           <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 6, marginVertical: 3 }}>
             <View style={{ width: 46, height: 46 }} />
-            <ControllerButton onPress={onDown} icon={<MoveDown color="#eaeaea" size={24} />} />
+            <ControllerButton onPress={onDown} icon={<MoveDown  size={24} />} />
             <View style={{ width: 46, height: 46 }} />
           </View>
         </View>
