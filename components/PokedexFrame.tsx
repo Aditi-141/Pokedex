@@ -1,8 +1,9 @@
 // components/pokedex/PokedexFrame.tsx
 import React, { ReactNode } from "react";
-import { SafeAreaView, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { SafeAreaFrameContext } from "react-native-safe-area-context";
 
-type Props = {
+type PokedexFrame = {
   title?: string;
   children: ReactNode;
   footer?: ReactNode;
@@ -12,9 +13,9 @@ export default function PokedexFrame({
   title = "POKÉDEX",
   children,
   footer,
-}: Props) {
+}: PokedexFrame) {
   return (
-    <SafeAreaView className="flex-1 bg-[#111]">
+    <SafeAreaFrameContext value={null}>
       {/* Red device body */}
       <View className="flex-1 m-[10px] rounded-[22px] bg-[#e31919] border-4 border-[#0c0c0c] overflow-hidden">
         {/* Top red header */}
@@ -51,6 +52,6 @@ export default function PokedexFrame({
           {footer}
         </View>
       </View>
-    </SafeAreaView>
+    </SafeAreaFrameContext>
   );
 }
