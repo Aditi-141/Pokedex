@@ -1,7 +1,7 @@
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useMemo, useState } from "react";
 import { ActivityIndicator, Image, ScrollView, Text, View } from "react-native";
-import PokedexFrame from "../components/PokedexFrame";
+import PokedexFrame from "../../../components/PokedexFrame";
 
 type PokemonDetail = {
   abilities: [];

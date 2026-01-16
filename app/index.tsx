@@ -65,7 +65,7 @@ export default function PokedexScreen() {
 
   const openSelected = () => {
     if (!filtered.length) return;
-    router.push(`/${filtered[selectedIndex].name}`);
+    router.push(`/pokemon/${filtered[selectedIndex].name}`);
   };
 
   const clearOrTop = () => {
@@ -107,7 +107,7 @@ export default function PokedexScreen() {
           query={query}
           onSelectAndOpen={(i) => {
             setSelectedIndex(i);
-            router.push(`/${filtered[i].name}`);
+            router.push(`/pokemon/${filtered[i].name}`);
           }}
         />
       )}
