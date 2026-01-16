@@ -1,6 +1,13 @@
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect, useMemo, useState } from "react";
-import { ActivityIndicator, Image, ScrollView, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import PokedexFrame from "../../../components/PokedexFrame";
 
 type PokemonDetail = {
@@ -16,6 +23,7 @@ type PokemonDetail = {
 
 export default function PokemonDetailScreen() {
   const { name } = useLocalSearchParams<{ name: string }>();
+  const router = useRouter();
 
   const [pokemon, setPokemon] = useState<PokemonDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -40,6 +48,11 @@ export default function PokemonDetailScreen() {
     if (spriteUri) console.log("Sprite URI:", spriteUri);
   }, [spriteUri]);
 
+  const goBack = () => {
+    if (router.canGoBack()) router.back();
+    else router.replace("/");
+  };
+
   return (
     <PokedexFrame title={title}>
       {loading || !pokemon ? (
@@ -48,6 +61,7 @@ export default function PokemonDetailScreen() {
         </View>
       ) : (
         <ScrollView contentContainerStyle={{ padding: 14 }}>
+          {/* Back button */}
           <View className="bg-white border-[3px] border-[#0c0c0c] rounded-[14px] p-[14px]">
             <Text className="text-[22px] font-black text-[#111] capitalize mb-[12px]">
               #{pokemon.id} • {pokemon.name}
@@ -56,7 +70,7 @@ export default function PokemonDetailScreen() {
             {spriteUri ? (
               <Image
                 source={{ uri: spriteUri }}
-                style={{ width: 220, height: 220, alignSelf: "center" }} 
+                style={{ width: 220, height: 220, alignSelf: "center" }}
                 resizeMode="contain"
                 onLoad={() => console.log("Image loaded")}
                 onError={(e) =>
@@ -87,7 +101,7 @@ export default function PokemonDetailScreen() {
               <Text className="font-black text-[#333]">Abilities</Text>
               <Text className="font-extrabold text-[#111] capitalize">
                 {pokemon?.abilities
-                  ?.map((a: { ability: { name: string; }; }) => a.ability.name)
+                  ?.map((a: { ability: { name: string } }) => a.ability.name)
                   .join(", ") ?? "—"}
               </Text>
             </View>
@@ -99,6 +113,13 @@ export default function PokemonDetailScreen() {
               </Text>
             </View>
           </View>
+          <Pressable
+            onPress={goBack}
+            className="w-full h-[56px] rounded-[10px] bg-[#e31919] border-[3px] border-[#0c0c0c] items-center justify-center"
+          >
+            <Text className="font-black text-[#111]">Back</Text>
+          </Pressable>
+
         </ScrollView>
       )}
     </PokedexFrame>
