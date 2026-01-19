@@ -7,15 +7,16 @@ type PokedexFrameProps = {
   title?: string;
   children: ReactNode;
   footer?: ReactNode;
+  
 };
 
 export default function PokedexFrame({
-  title = "POKÉDEX",
+  title = "POKEDEX",
   children,
   footer,
 }: PokedexFrameProps) {
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1  bg-[#c01e1e] ">
       {/* Red device body */}
       <View className="flex-1 m-[10px] rounded-[22px] bg-[#c01e1e] overflow-hidden">
         {/* Top header */}
@@ -47,7 +48,7 @@ export default function PokedexFrame({
           </View>
         </View>
 
-        {/* Bottom control panel (ONLY if footer exists) */}
+        {/* Bottom control panel*/}
         {footer ? (
           <View className="bg-[#3b3b3b] border-t-4 border-t-[#0c0c0c] p-[14px]">
             {footer}
