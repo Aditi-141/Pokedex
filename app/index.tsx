@@ -96,7 +96,7 @@ export default function PokedexScreen() {
         <View className="flex-1 items-center justify-center">
           <ActivityIndicator size="large" color="#e31919" />
           <Text className="mt-[10px] text-[16px] text-[#e31919] font-bold">
-            Loading Pokémon…
+            Loading Pokemon…
           </Text>
         </View>
       ) : (
