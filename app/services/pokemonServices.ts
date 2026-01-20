@@ -1,9 +1,12 @@
+import Constants from "expo-constants";
 import type { PokemonListItem } from "../../components/PokemonList";
 import type { PokemonDetail } from "../pokemon/[name]/PokemonDetail";
 
+let API_BASE = Constants.expoConfig?.extra?.API_BASE as string | undefined;
 
-const API_BASE = "https://pokeapi.co/api/v2";
-
+if (!API_BASE) {
+  throw new Error("API_BASE is missing. Set it in app.config.js -> extra.API_BASE");
+}
 export async function fetchPokemonByName(name: string): Promise<PokemonDetail> {
   const safeName = name.trim().toLowerCase();
 
