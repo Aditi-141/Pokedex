@@ -12,7 +12,7 @@ import {
 
 import PokedexFrame from "../../../components/PokedexFrame";
 import { fetchPokemonByName } from "../../services/pokemonServices";
-import type { PokemonDetail } from "./PokemonDetail";
+import type { PokemonDetail } from "../../types";
 
 export default function PokemonDetailScreen() {
   const { name } = useLocalSearchParams<{ name: string }>();

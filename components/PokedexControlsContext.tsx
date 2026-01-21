@@ -1,18 +1,5 @@
 import React, { createContext, useContext } from "react";
-import type { TextInput } from "react-native";
-
-type PokedexControls = {
-  query: string;
-  setQuery: (v: string) => void;
-  searchRef: React.RefObject<TextInput | null>;
-  onUp: () => void;
-  onDown: () => void;
-  onLeft: () => void;
-  onRight: () => void;
-  onCenter: () => void;
-  onAccept: () => void;
-  onReject: () => void;
-};
+import { PokedexControls } from "../app/types";
 
 const Ctx = createContext<PokedexControls | null>(null);
 
