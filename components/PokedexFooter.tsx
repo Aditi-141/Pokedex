@@ -10,8 +10,8 @@ import {
 } from "lucide-react-native";
 import React from "react";
 import { View } from "react-native";
-import { usePokedexControls } from "../app/PokedexControlsContext";
 import ControllerButton from "./ControllerButton";
+import { usePokedexControls } from "./PokedexControlsContext";
 import SearchBar from "./ui/SearchBar";
 
 const PokedexFooter: React.FC = () => {

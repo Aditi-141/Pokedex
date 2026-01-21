@@ -65,7 +65,7 @@ vi.mock("../ControllerButton", () => ({
   ),
 }));
 
-import { PokedexControlsProvider } from "../../app/PokedexControlsContext";
+import { PokedexControlsProvider } from "../PokedexControlsContext";
 import PokedexFooter from "../PokedexFooter";
 
 describe("PokedexFooter (DOM test)", () => {

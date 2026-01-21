@@ -3,11 +3,11 @@ import { useRouter } from "expo-router";
 import React, { useMemo, useRef, useState } from "react";
 import { ActivityIndicator, Pressable, Text, TextInput, View } from "react-native";
 
+import { PokedexControlsProvider } from "../components/PokedexControlsContext";
 import PokedexFooter from "../components/PokedexFooter";
 import PokedexFrame from "../components/PokedexFrame";
 import type { LegendListRef, PokemonListItem } from "../components/PokemonList";
 import PokemonList from "../components/PokemonList";
-import { PokedexControlsProvider } from "./PokedexControlsContext";
 import { fetchPokemonList } from "./services/pokemonServices";
 
 export default function PokedexScreen() {
@@ -37,7 +37,6 @@ export default function PokedexScreen() {
     return pokemon.filter((p) => p.name.includes(q));
   }, [pokemon, query]);
 
-  // ✅ derived (replaces the old useEffect)
   const safeIndex = useMemo(() => {
     if (filtered.length === 0) return 0;
     return Math.min(selectedIndex, filtered.length - 1);

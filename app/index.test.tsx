@@ -49,11 +49,11 @@ vi.mock("../components/PokemonList", () => ({
   },
 }));
 
-// Footer mock: MUST read from context now
+// Footer mock
 let lastControls: any = null;
 vi.mock("../components/PokedexFooter", async () => {
   const React = (await import("react")) as any;
-  const ctx = await import("../app/PokedexControlsContext");
+  const ctx = await import("../components/PokedexControlsContext");
   return {
     default: () => {
       const controls = ctx.usePokedexControls();
