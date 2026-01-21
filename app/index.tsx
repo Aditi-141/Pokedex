@@ -1,18 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  Pressable,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import React, { useMemo, useRef, useState } from "react";
+import { ActivityIndicator, Pressable, Text, TextInput, View } from "react-native";
 
 import PokedexFooter from "../components/PokedexFooter";
 import PokedexFrame from "../components/PokedexFrame";
-import PokemonList, { PokemonListItem } from "../components/PokemonList";
+import type { LegendListRef, PokemonListItem } from "../components/PokemonList";
+import PokemonList from "../components/PokemonList";
+import { PokedexControlsProvider } from "./PokedexControlsContext";
 import { fetchPokemonList } from "./services/pokemonServices";
 
 export default function PokedexScreen() {
@@ -21,7 +16,7 @@ export default function PokedexScreen() {
 
   const router = useRouter();
 
-  const listRef = useRef<FlatList<PokemonListItem> | null>(null);
+  const listRef = useRef<LegendListRef>(null);
   const searchRef = useRef<TextInput | null>(null);
 
   const {
@@ -31,11 +26,9 @@ export default function PokedexScreen() {
     error,
     refetch,
     isFetching,
-  } = useQuery({
+  } = useQuery<PokemonListItem[]>({
     queryKey: ["pokemon-list", 151],
     queryFn: () => fetchPokemonList(151),
-    staleTime: 1000 * 60 * 10, // 10 min
-    gcTime: 1000 * 60 * 30, // 30 min
   });
 
   const filtered = useMemo(() => {
@@ -44,14 +37,11 @@ export default function PokedexScreen() {
     return pokemon.filter((p) => p.name.includes(q));
   }, [pokemon, query]);
 
-  // keep selectedIndex valid when filtered list changes
-  useEffect(() => {
-    if (filtered.length === 0) {
-      setSelectedIndex(0);
-      return;
-    }
-    setSelectedIndex((prev) => Math.min(prev, filtered.length - 1));
-  }, [filtered.length]);
+  // ✅ derived (replaces the old useEffect)
+  const safeIndex = useMemo(() => {
+    if (filtered.length === 0) return 0;
+    return Math.min(selectedIndex, filtered.length - 1);
+  }, [selectedIndex, filtered.length]);
 
   const scrollTo = (index: number) => {
     if (!filtered.length) return;
@@ -64,14 +54,14 @@ export default function PokedexScreen() {
 
   const move = (delta: number) => {
     if (!filtered.length) return;
-    const next = Math.max(0, Math.min(filtered.length - 1, selectedIndex + delta));
+    const next = Math.max(0, Math.min(filtered.length - 1, safeIndex + delta));
     setSelectedIndex(next);
     scrollTo(next);
   };
 
   const openSelected = () => {
     if (!filtered.length) return;
-    router.push(`/pokemon/${filtered[selectedIndex].name}`);
+    router.push(`/pokemon/${filtered[safeIndex].name}`);
   };
 
   const clearOrTop = () => {
@@ -81,60 +71,59 @@ export default function PokedexScreen() {
   };
 
   return (
-    <PokedexFrame
-      title="POKEDEX"
-      footer={
-        <PokedexFooter
-          query={query}
-          setQuery={setQuery}
-          searchRef={searchRef}
-          onUp={() => move(-1)}
-          onDown={() => move(1)}
-          onLeft={() => move(-5)}
-          onRight={() => move(5)}
-          onCenter={() => searchRef.current?.focus()}
-          onAccept={openSelected}
-          onReject={clearOrTop}
-        />
-      }
+    <PokedexControlsProvider
+      value={{
+        query,
+        setQuery,
+        searchRef,
+        onUp: () => move(-1),
+        onDown: () => move(1),
+        onLeft: () => move(-5),
+        onRight: () => move(5),
+        onCenter: () => searchRef.current?.focus(),
+        onAccept: openSelected,
+        onReject: clearOrTop,
+      }}
     >
-      {isLoading ? (
-        <View className="flex-1 items-center justify-center">
-          <ActivityIndicator size="large" color="#e31919" />
-          <Text className="mt-[10px] text-[16px] text-[#e31919] font-bold">
-            Loading Pokemon…
-          </Text>
-        </View>
-      ) : isError ? (
-        <View className="flex-1 items-center justify-center px-6">
-          <Text className="font-black text-[#333] text-center mb-3">
-            Couldn’t load Pokémon list
-          </Text>
-          <Text className="text-[#666] text-center mb-4">
-            {error instanceof Error ? error.message : "Unknown error"}
-          </Text>
-
-          <Pressable
-            onPress={() => refetch()}
-            className="w-full h-[56px] rounded-[10px] bg-[#f38b8b] items-center justify-center"
-          >
-            <Text className="font-black text-[#333]">
-              {isFetching ? "Retrying..." : "Retry"}
+      <PokedexFrame title="POKEDEX" footer={<PokedexFooter />}>
+        {isLoading ? (
+          <View className="flex-1 items-center justify-center">
+            <ActivityIndicator size="large" color="#e31919" />
+            <Text className="mt-[10px] text-[16px] text-[#e31919] font-bold">
+              Loading Pokemon…
             </Text>
-          </Pressable>
-        </View>
-      ) : (
-        <PokemonList
-          data={filtered}
-          selectedIndex={selectedIndex}
-          listRef={listRef}
-          query={query}
-          onSelectAndOpen={(i) => {
-            setSelectedIndex(i);
-            router.push(`/pokemon/${filtered[i].name}`);
-          }}
-        />
-      )}
-    </PokedexFrame>
+          </View>
+        ) : isError ? (
+          <View className="flex-1 items-center justify-center px-6">
+            <Text className="font-black text-[#333] text-center mb-3">
+              Couldn’t load Pokémon list
+            </Text>
+            <Text className="text-[#666] text-center mb-4">
+              {error instanceof Error ? error.message : "Unknown error"}
+            </Text>
+
+            <Pressable
+              onPress={() => refetch()}
+              className="w-full h-[56px] rounded-[10px] bg-[#f38b8b] items-center justify-center"
+            >
+              <Text className="font-black text-[#333]">
+                {isFetching ? "Retrying..." : "Retry"}
+              </Text>
+            </Pressable>
+          </View>
+        ) : (
+          <PokemonList
+            data={filtered}
+            selectedIndex={safeIndex}
+            listRef={listRef}
+            query={query}
+            onSelectAndOpen={(i) => {
+              setSelectedIndex(i);
+              router.push(`/pokemon/${filtered[i].name}`);
+            }}
+          />
+        )}
+      </PokedexFrame>
+    </PokedexControlsProvider>
   );
 }

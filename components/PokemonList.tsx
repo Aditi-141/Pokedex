@@ -6,7 +6,11 @@ import PokemonCard from "./PokemonCard";
 export type PokemonListItem = { name: string; url: string };
 
 export type LegendListRef = {
-  scrollToIndex: (params: { index: number; animated?: boolean; viewPosition?: number }) => void;
+  scrollToIndex: (params: {
+    index: number;
+    animated?: boolean;
+    viewPosition?: number;
+  }) => void;
 } | null;
 
 export default function PokemonList({
@@ -26,6 +30,7 @@ export default function PokemonList({
     <LegendList
       ref={listRef as any}
       data={data}
+      extraData={selectedIndex} // ✅ IMPORTANT: re-render when selection changes
       keyExtractor={(item) => item.name}
       contentContainerStyle={{ padding: 12, paddingBottom: 18 }}
       renderItem={({ item, index }: { item: PokemonListItem; index: number }) => (
