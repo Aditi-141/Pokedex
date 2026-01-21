@@ -1,13 +1,7 @@
 import React from "react";
-import { Pressable, ViewStyle } from "react-native";
+import { Pressable } from "react-native";
+import { ControllerButtonProps } from "../app/types";
 
-interface ControllerButtonProps {
-  onPress: () => void;
-  icon: React.ReactNode;
-  size?: number;
-  bgColor?: string;
-  style?: ViewStyle;
-}
 
 const ControllerButton: React.FC<ControllerButtonProps> = ({
   onPress,

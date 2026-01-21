@@ -1,4 +1,4 @@
-import type { TextInput } from "react-native";
+import type { TextInput, ViewStyle } from "react-native";
 
 export interface PokemonDetail {
   abilities: { ability: { name: string } }[];
@@ -30,3 +30,11 @@ export interface PokedexControls{
   onAccept: () => void;
   onReject: () => void;
 };
+
+export interface ControllerButtonProps {
+  onPress: () => void;
+  icon: React.ReactNode;
+  size?: number;
+  bgColor?: string;
+  style?: ViewStyle;
+}
