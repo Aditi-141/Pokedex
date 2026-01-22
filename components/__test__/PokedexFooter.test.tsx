@@ -133,7 +133,7 @@ describe("PokedexFooter (DOM test)", () => {
   it("calls D-pad handlers and Accept/Reject when buttons are clicked", () => {
     renderFooter("");
 
-    const buttons = screen.getAllByTestId("controller-button");
+    const buttons = screen.getAllByRole("button");
     expect(buttons.length).toBeGreaterThanOrEqual(7);
 
     // click each one once
