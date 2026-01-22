@@ -13,6 +13,10 @@ export default function PokemonCard({
   return (
     <Pressable
       onPress={onPress}
+      testID={`pokemon-item-${name.toLowerCase()}`}
+      accessibilityLabel={`pokemon-item-${name.toLowerCase()}`}
+      accessibilityRole="button"
+      accessible
       className={[
         "bg-[#ebeef3] border-0 rounded-[12px] py-[14px] px-[14px] mb-[10px] flex-row items-center justify-between",
         selected && "bg-[#eee090]",

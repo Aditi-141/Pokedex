@@ -1,0 +1,74 @@
+appId: com.anonymous.Pokedex
+---
+- launchApp:
+    clearState: true
+- waitForAnimationToEnd
+
+# Home screen
+- extendedWaitUntil:
+    visible: "POKEDEX"
+    timeout: 20000
+
+# D-pad
+- tapOn:
+    id: "dpad-down"
+    optional: true
+- tapOn:
+    id: "dpad-up"
+    optional: true
+- tapOn:
+    id: "dpad-right"
+    optional: true
+- tapOn:
+    id: "dpad-left"
+    optional: true
+- tapOn:
+    id: "dpad-center"
+    optional: true
+
+# SEARCH: focus + type
+- tapOn:
+    text: "Search by name…"
+    optional: true
+
+# Try to focus the search input 
+- tapOn:
+    text: "Search by name…"
+    optional: true
+
+- tapOn:
+    text: "Search"
+    optional: true
+
+- inputText: "pikachu"
+- hideKeyboard
+
+# 1)Accept
+- tapOn:
+    id: "btn-accept"
+
+- waitForAnimationToEnd
+
+# Wait for detail view
+- extendedWaitUntil:
+    visible: "pikachu"
+    timeout: 20000
+    optional: true
+
+- waitForAnimationToEnd
+- takeScreenshot: "detail"
+
+# Back to list
+- tapOn:
+    id: "btn-back"
+
+- waitForAnimationToEnd
+
+# Go back to list view 
+- tapOn:
+    id: "btn-reject"
+    optional: true
+
+- extendedWaitUntil:
+    visible: "POKEDEX"
+    timeout: 15000

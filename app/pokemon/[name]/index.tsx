@@ -165,6 +165,10 @@ export default function PokemonDetailScreen() {
 
         <View className="absolute bottom-0 left-0 right-0 p-[14px] bg-[#f3f3f3] border-t border-[#ddd]">
           <Pressable
+          testID="btn-back"
+          accessibilityLabel="btn-back"
+          accessibilityRole="button"
+          accessible
             onPress={goBack}
             className="w-full h-[56px] rounded-[10px] bg-[#f38b8b] items-center justify-center"
           >

@@ -29,16 +29,9 @@ const PokedexFooter: React.FC = () => {
   } = usePokedexControls();
 
   return (
-    <View style={{ gap: 12 }}>
+    <View className="gap-3">
       {/* Search */}
-      <View
-        style={{
-          backgroundColor: "#e5f8b5",
-          borderRadius: 12,
-          padding: 10,
-          gap: 8,
-        }}
-      >
+      <View className="bg-[#e5f8b5] rounded-xl p-2 gap-2">
         <SearchBar
           ref={searchRef}
           value={query}
@@ -48,52 +41,22 @@ const PokedexFooter: React.FC = () => {
       </View>
 
       {/* Controls row */}
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
+      <View className="flex-row justify-between items-center">
         {/* D-pad */}
-        <View
-          style={{
-            padding: 6,
-            backgroundColor: "#727272",
-            borderWidth: 3,
-            borderColor: "#0c0c0c",
-            borderRadius: 12,
-          }}
-        >
+        <View className="p-1 bg-[#727272] border-3 border-[#0c0c0c] rounded-xl">
           {/* Row 1 */}
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: 6,
-              marginVertical: 3,
-            }}
-          >
-            <View style={{ width: 46, height: 46 }} />
+          <View className="flex-row justify-center items-center gap-1 my-1">
+            <View className="w-11 h-11" />
             <ControllerButton
               onPress={onUp}
               icon={<MoveUp size={24} />}
               testID="dpad-up"
             />
-            <View style={{ width: 46, height: 46 }} />
+            <View className="w-11 h-11" />
           </View>
 
           {/* Row 2 */}
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: 6,
-              marginVertical: 3,
-            }}
-          >
+          <View className="flex-row justify-center items-center gap-1 my-1">
             <ControllerButton
               onPress={onLeft}
               icon={<MoveLeft size={24} />}
@@ -113,33 +76,19 @@ const PokedexFooter: React.FC = () => {
           </View>
 
           {/* Row 3 */}
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: 6,
-              marginVertical: 3,
-            }}
-          >
-            <View style={{ width: 46, height: 46 }} />
+          <View className="flex-row justify-center items-center gap-1 my-1">
+            <View className="w-11 h-11" />
             <ControllerButton
               onPress={onDown}
               icon={<MoveDown size={24} />}
               testID="dpad-down"
             />
-            <View style={{ width: 46, height: 46 }} />
+            <View className="w-11 h-11" />
           </View>
         </View>
 
         {/* Accept / Reject */}
-        <View
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 10,
-          }}
-        >
+        <View className="items-center justify-center gap-2.5">
           <ControllerButton
             onPress={onReject}
             icon={<X color="#0c0c0c" size={28} />}
