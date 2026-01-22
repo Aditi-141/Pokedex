@@ -76,7 +76,11 @@ const PokedexFooter: React.FC = () => {
             }}
           >
             <View style={{ width: 46, height: 46 }} />
-            <ControllerButton onPress={onUp} icon={<MoveUp size={24} />} />
+            <ControllerButton
+              onPress={onUp}
+              icon={<MoveUp size={24} />}
+              testID="dpad-up"
+            />
             <View style={{ width: 46, height: 46 }} />
           </View>
 
@@ -90,13 +94,22 @@ const PokedexFooter: React.FC = () => {
               marginVertical: 3,
             }}
           >
-            <ControllerButton onPress={onLeft} icon={<MoveLeft size={24} />} />
+            <ControllerButton
+              onPress={onLeft}
+              icon={<MoveLeft size={24} />}
+              testID="dpad-left"
+            />
             <ControllerButton
               onPress={onCenter}
               icon={<CircleDot size={24} />}
               bgColor="#3a3a3a"
+              testID="dpad-center"
             />
-            <ControllerButton onPress={onRight} icon={<MoveRight size={24} />} />
+            <ControllerButton
+              onPress={onRight}
+              icon={<MoveRight size={24} />}
+              testID="dpad-right"
+            />
           </View>
 
           {/* Row 3 */}
@@ -110,7 +123,11 @@ const PokedexFooter: React.FC = () => {
             }}
           >
             <View style={{ width: 46, height: 46 }} />
-            <ControllerButton onPress={onDown} icon={<MoveDown size={24} />} />
+            <ControllerButton
+              onPress={onDown}
+              icon={<MoveDown size={24} />}
+              testID="dpad-down"
+            />
             <View style={{ width: 46, height: 46 }} />
           </View>
         </View>
@@ -128,12 +145,14 @@ const PokedexFooter: React.FC = () => {
             icon={<X color="#0c0c0c" size={28} />}
             size={56}
             bgColor="#e31919"
+            testID="btn-reject"
           />
           <ControllerButton
             onPress={onAccept}
             icon={<Check color="#0c0c0c" size={28} />}
             size={56}
             bgColor="#38d86b"
+            testID="btn-accept"
           />
         </View>
       </View>

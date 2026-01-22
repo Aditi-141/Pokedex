@@ -37,4 +37,5 @@ export interface ControllerButtonProps {
   size?: number;
   bgColor?: string;
   style?: ViewStyle;
+  testID?: string; 
 }
