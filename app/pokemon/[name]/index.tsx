@@ -1,11 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useMemo } from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 
 import PokedexFrame from "../../../components/PokedexFrame";
-import { fetchPokemonByName } from "../../services/pokemonServices";
-import type { PokemonDetail } from "../../types/types";
+import { usePokemonDetail } from "../../../hooks/usePokemonDetail";
 import ErrorView from "./ErrorView";
 import InfoRow from "./InfoRow";
 import LoadingView from "./LoadingView";
@@ -19,13 +17,7 @@ export default function PokemonDetailScreen() {
   const pokemonName = typeof name === "string" ? name : "";
 
   const { data: pokemon, isLoading, isError, error, refetch, isFetching } =
-    useQuery<PokemonDetail>({
-      queryKey: ["pokemon-detail", pokemonName.toLowerCase()],
-      queryFn: () => fetchPokemonByName(pokemonName),
-      enabled: !!pokemonName,
-      staleTime: 1000 * 60 * 5,
-      gcTime: 1000 * 60 * 30,
-    });
+    usePokemonDetail(pokemonName);
 
   const spriteUri =
     pokemon?.sprites?.front_default?.replace("http://", "https://") ?? "";
