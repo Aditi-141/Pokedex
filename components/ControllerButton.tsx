@@ -1,6 +1,6 @@
 import React from "react";
 import { Pressable } from "react-native";
-import { ControllerButtonProps } from "../app/types";
+import { ControllerButtonProps } from "../app/types/types";
 
 const ControllerButton: React.FC<ControllerButtonProps> = ({
   onPress,

@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from "react";
-import { PokedexControls } from "../app/types";
+import { PokedexControls } from "../app/types/types";
 
 const Ctx = createContext<PokedexControls | null>(null);
 

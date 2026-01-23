@@ -1,6 +1,6 @@
 import Constants from "expo-constants";
 import type { PokemonListItem } from "../../components/PokemonList";
-import type { PokemonDetail } from "../types";
+import type { PokemonDetail } from "../types/types";
 
 let API_BASE = Constants.expoConfig?.extra?.API_BASE as string | undefined;
 

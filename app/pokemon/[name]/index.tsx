@@ -5,7 +5,7 @@ import { Image, Pressable, ScrollView, Text, View } from "react-native";
 
 import PokedexFrame from "../../../components/PokedexFrame";
 import { fetchPokemonByName } from "../../services/pokemonServices";
-import type { PokemonDetail } from "../../types";
+import type { PokemonDetail } from "../../types/types";
 import ErrorView from "./ErrorView";
 import InfoRow from "./InfoRow";
 import LoadingView from "./LoadingView";
