@@ -30,7 +30,7 @@ export default function PokemonList({
     <LegendList
       ref={listRef as any}
       data={data}
-      extraData={selectedIndex} // ✅ IMPORTANT: re-render when selection changes
+      extraData={selectedIndex}
       keyExtractor={(item) => item.name}
       contentContainerStyle={{ padding: 12, paddingBottom: 18 }}
       renderItem={({ item, index }: { item: PokemonListItem; index: number }) => (
