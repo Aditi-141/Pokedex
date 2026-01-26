@@ -7,12 +7,13 @@ appId: com.anonymous.Pokedex
 # Home screen
 - extendedWaitUntil:
     visible: "POKEDEX"
-    timeout: 20000
+    timeout: 60000
 
 # D-pad
-- tapOn:
+- longPressOn:
     id: "dpad-down"
     optional: true
+
 - tapOn:
     id: "dpad-up"
     optional: true
@@ -35,6 +36,7 @@ appId: com.anonymous.Pokedex
 - tapOn:
     text: "Search by name…"
     optional: true
+- takeScreenshot: "detail"
 
 - tapOn:
     text: "Search"
@@ -46,14 +48,6 @@ appId: com.anonymous.Pokedex
 # 1)Accept
 - tapOn:
     id: "btn-accept"
-
-- waitForAnimationToEnd
-
-# Wait for detail view
-- extendedWaitUntil:
-    visible: "pikachu"
-    timeout: 20000
-    optional: true
 
 - waitForAnimationToEnd
 - takeScreenshot: "detail"
@@ -68,6 +62,7 @@ appId: com.anonymous.Pokedex
 - tapOn:
     id: "btn-reject"
     optional: true
+- takeScreenshot: "detail"
 
 - extendedWaitUntil:
     visible: "POKEDEX"

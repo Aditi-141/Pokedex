@@ -95,7 +95,7 @@ export default function PokedexScreen() {
         ) : isError ? (
           <View className="flex-1 items-center justify-center px-6">
             <Text className="font-black text-[#333] text-center mb-3">
-              Couldn’t load Pokémon list
+              Couldn't load Pokémon list
             </Text>
             <Text className="text-[#666] text-center mb-4">
               {error instanceof Error ? error.message : "Unknown error"}

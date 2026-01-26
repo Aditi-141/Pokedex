@@ -3,5 +3,8 @@
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
     "source.sortMembers": "explicit"
+  },
+  "yaml.schemas": {
+    "https://maestro.mobile.dev/schema.json": "file:///c%3A/Users/aditi/expo/Pokedex/.maestro/pokedex.yaml"
   }
 }

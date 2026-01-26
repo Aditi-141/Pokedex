@@ -105,7 +105,7 @@ describe("PokemonDetailScreen", () => {
 
     render(<PokemonDetailScreen />);
 
-    expect(screen.getByText("Couldn’t load Pokémon details")).toBeInTheDocument();
+    expect(screen.getByText("Couldn't load Pokémon details")).toBeInTheDocument();
     expect(screen.getByText("Network down")).toBeInTheDocument();
 
     fireEvent.click(screen.getByText("Retry"));

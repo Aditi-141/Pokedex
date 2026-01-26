@@ -12,7 +12,7 @@ export default function ErrorView({ error, onRetry, isRetrying, onBack }: ErrorV
   return (
     <View className="flex-1 items-center justify-center px-6">
       <Text className="font-black text-[#333] text-center mb-3">
-        Couldn’t load Pokémon details
+        Couldn't load Pokémon details
       </Text>
       <Text className="text-[#666] text-center mb-4">
         {error instanceof Error ? error.message : "Unknown error"}
